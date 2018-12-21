@@ -1,0 +1,47 @@
+{% extends 'myblog/base.html'%}
+{% load static %}
+{% block main %}
+		<div class="content-body">
+			<div class="container">
+				<div class="row">
+					<main class="col-md-12">
+						{% for post in post_list %}
+						<article class="post post-1">
+							<header class="entry-header">
+								<h1 class="entry-title">
+									<a href="{% url 'myblog:detail' post.id %}">{{post.title}}</a>
+								</h1>
+								<div class="entry-meta">
+									<span class="post-category"><a href="#">{{post.category}}</a></span>
+			
+									<span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{post.create_time}}</time></a></span>
+			
+									<span class="post-author"><a>{{post.user}}</a></span>
+			
+									<span class="comments-link"><a>{{post.comment_set.count}}</a></span>
+								</div>
+							</header>
+							<div class="entry-content clearfix">
+								<p>{{post.excerpt}}</p>
+								<div class="read-more cl-effect-14">
+									<a href="{% url 'myblog:detail' post.id %}" class="more-link">阅读更多 <span class="meta-nav">→</span></a>
+								</div>
+							</div>
+						</article>
+						{% endfor %}
+					</main>
+				</div>
+			</div>
+		</div>
+	     <div class="pagination-simple">
+                {% if posts.has_previous %}
+                    <a href="?{{ posts.previous_page_number.querystring }}">上一页</a>
+                    {% endif %}
+                    <span class="current">第 {{ page }} 页 / 共 {{ page_total }} 页</span>
+                {% if posts.has_next %}
+                    <a href="?{{ posts.next_page_number.querystring }}">下一页</a>
+                {% endif %}
+                </div>
+{% endblock %}
+{% block common_aside %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'myblog/base.html'%}
+{% load static %}
+{% load blog_tags %}
+			{% block main %}
+                {% for post in posts.object_list %}
+                <article class="post post-1">
+                    <header class="entry-header">
+                        <h1 class="entry-title">
+                            <a href="{% url 'myblog:detail' post.id %}">{{ post.title }}</a>
+                        </h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="#">{{post.category.name}}</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="2012-11-09T23:15:57+00:00">{{post.create_time.year}}年{{post.create_time.month}}月{{post.create_time.day }}日</time></a></span>
+                            <span class="post-author"><a href="#">{{ post.user.username }}</a></span>
+                            <span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
+                            <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        <p>{{ post.excerpt }}</p>
+                        <div class="read-more cl-effect-14">
+                            <a href="{% url 'myblog:detail' post.id %}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                        </div>
+                    </div>
+                </article>
+    <a>{{ session_name }}</a>
+                {% endfor %}
+
+
+                <div class="pagination-simple">
+                {% if posts.has_previous %}
+                    <a href="?{{ posts.previous_page_number.querystring }}">上一页</a>
+                    {% endif %}
+                    <span class="current">第 {{ page }} 页 / 共 {{ page_total }} 页</span>
+                {% if posts.has_next %}
+                    <a href="?{{ posts.next_page_number.querystring }}">下一页</a>
+                {% endif %}
+                </div>
+
+{#                <div class="pagination">#}
+{#                    {{ posts.render }}#}
+{#                </div>#}
+
+{##}
+{#                <div class="pagination">#}
+{#                    <ul>#}
+{#                        <li><a href="">1</a></li>#}
+{#                        <li><a href="">...</a></li>#}
+{#                        <li><a href="">4</a></li>#}
+{#                        <li><a href="">5</a></li>#}
+{#                        <li class="current"><a href="">6</a></li>#}
+{#                        <li><a href="">7</a></li>#}
+{#                        <li><a href="">8</a></li>#}
+{#                        <li><a href="">...</a></li>#}
+{#                        <li><a href="">11</a></li>#}
+{#                    </ul>#}
+{#                </div>#}
+				{% endblock %}
+
+ 
+  
